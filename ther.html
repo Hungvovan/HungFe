@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thời tiết</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 50px;
+        }
+        .weather {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+        .city {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .temp {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+        .desc {
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Thời tiết hiện tại</h1>
+    <div class="weather">
+        <div class="city" id="city">...</div>
+        <div class="temp" id="temp">...</div>
+        <div class="desc" id="desc">...</div>
+    </div>
+
+    <script>
+        const apiKey = 'YOUR_API_KEY';
+        const city = 'Hanoi';
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('city').textContent = data.name;
+                document.getElementById('temp').textContent = data.main.temp + '°C';
+                document.getElementById('desc').textContent = data.weather[0].description;
+            })
+            .catch(error => console.log('Error:', error));
+    </script>
+</body>
+</html>
